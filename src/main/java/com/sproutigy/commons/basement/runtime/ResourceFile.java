@@ -54,13 +54,20 @@ public class ResourceFile implements AutoCloseable {
                 stream.close();
                 tempFile.deleteOnExit();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Could not load resource file: " + toString(), e);
             }
         }
         return this;
     }
 
-    public URL getURL() throws IOException {
+    public String getFilename() {
+        if (resourceName.contains("/")) {
+            return resourceName.substring(resourceName.lastIndexOf("/")+1);
+        }
+        return resourceName;
+    }
+
+    public URL getURL() {
         URL url;
         if (ownerClass != null) {
             url = ownerClass.getResource(resourceName);
@@ -71,7 +78,7 @@ public class ResourceFile implements AutoCloseable {
         }
 
         if (url == null) {
-            throw new IOException("Could not find resource: " + toString());
+            throw new RuntimeException("Could not find resource: " + toString());
         }
         return url;
     }
@@ -80,24 +87,32 @@ public class ResourceFile implements AutoCloseable {
         return (tempFile != null);
     }
 
-    public InputStream openStream() throws IOException {
+    public InputStream openStream() {
         if (tempFile == null || !tempFile.exists())
-            return getURL().openStream();
+            try {
+                InputStream inputStream = getURL().openStream();
+                if (inputStream == null) {
+                    throw new RuntimeException("Could not open stream of a resource: " + toString());
+                }
+                return inputStream;
+            } catch (IOException e) {
+                throw new RuntimeException("Could not open stream of a resource: " + toString(), e);
+            }
         else {
             try {
                 return new FileInputStream(tempFile);
             } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Could not open resource file: " + toString(), e);
             }
         }
     }
 
-    public File getFile() throws IOException {
+    public File toFile() {
         if (!isLoaded()) load();
         return tempFile;
     }
 
-    public String getPath() throws IOException {
+    public String toFilePath() {
         if (!isLoaded()) load();
         return tempFile.getAbsolutePath();
     }
@@ -125,7 +140,7 @@ public class ResourceFile implements AutoCloseable {
     }
 
     @Override
-    public synchronized void close() throws IOException {
+    public synchronized void close() {
         if (tempFile != null && tempFile.exists()) {
             tempFile.delete();
             tempFile = null;

@@ -166,8 +166,8 @@ File appDataDir = platform.getAppData("MyApp");
 platform.browse("http://www.sproutigy.com/"); //open URL in default web browser
 platform.open(file); //run default application
 
-boolean isOS64bit = Architecture.isOS64bit();
-boolean isJVM64bit = Architecture.isJVM64bit();
+boolean isOS64bit = PlatformArchitecture.isOS64bit();
+boolean isJVM64bit = PlatformArchitecture.isJVM64bit();
 ```
 
 
@@ -184,7 +184,7 @@ When playing with resource files and there's a need to have it accessible as a (
 `ResourceFile` can be used as it manages temporary file creation and deletion as also preparing the file on demand:
 ```
 ResourceFile myResource = new ResourceFile(MyClass.class, "myResource.txt");
-File resFile = myResource.getFile();
+File tempResFile = myResource.toFile();
 //do something with it
 myResource.close();
 ```

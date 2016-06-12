@@ -1,8 +1,8 @@
 package com.sproutigy.commons.basement.runtime.platform;
 
-public final class Architecture {
+public final class PlatformArchitecture {
 
-    private Architecture() {
+    private PlatformArchitecture() {
     }
 
     public static boolean isJVM64bit() {
