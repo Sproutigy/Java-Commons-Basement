@@ -88,6 +88,22 @@ MapBuilder.<String, Integer>ofTreeMap().put("a", 1).put("b", 2).build();
 ```
 
 
+### FileSystem
+
+#### FSWatch
+To watch for directory or file changes, use FSWatch instance:
+```
+FSWatch watch = new FSWatch();
+watch.watch("C:\\test"); //directory
+watch.watch("C:\\test2\\note.txt"); //file
+watch.addListener((path, eventType) -> System.out.println(eventType + " " + path)); //possible events: CREATED, MODIFIED, DELETED
+watch.setDelayMillis(500); //waits for a half of a second to aggregate events and results in last event for a specific path (e.g. to compensate multiple modification events over short amount of time)
+watch.start();
+Thread.sleep(60000);
+watch.close();
+```
+
+
 ### Utilities
 
 #### Obj
