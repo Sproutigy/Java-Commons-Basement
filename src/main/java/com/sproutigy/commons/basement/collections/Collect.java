@@ -538,6 +538,10 @@ public final class Collect {
         return Collections.unmodifiableCollection(collection);
     }
 
+    public static <K, V> Map<K, V> unmodifiable(Map<K, V> map) {
+        return Collections.unmodifiableMap(map);
+    }
+
     public static <E> Iterator<E> unmodifiable(final Iterator<? extends E> iterator) {
         return new Iterator<E>() {
             @Override
@@ -562,6 +566,25 @@ public final class Collect {
             @Override
             public Iterator<E> iterator() {
                 return unmodifiable(iterable.iterator());
+            }
+        };
+    }
+
+    public static <K, V> Map.Entry<K, V> unmodifiable(final Map.Entry<K, V> entry) {
+        return new Map.Entry<K, V>() {
+            @Override
+            public K getKey() {
+                return entry.getKey();
+            }
+
+            @Override
+            public V getValue() {
+                return entry.getValue();
+            }
+
+            @Override
+            public V setValue(V value) {
+                throw new UnsupportedOperationException("setValue");
             }
         };
     }
