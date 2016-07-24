@@ -88,6 +88,19 @@ MapBuilder.<String, Integer>ofTreeMap().put("a", 1).put("b", 2).build();
 ```
 
 
+### Config
+Config is a potentially hierarchical structure of configuration that can be read from single or multiple sources.
+Some configuration sources may be modifiable. Configuration may be watched for changes.
+```Config.ROOT``` represents joined values of ```System.getenv()``` and ```System.getProperties()```.
+Config of multiple sources can be created by constructing ```new CompoundConfig(sources...)``` specifying instances of sources in constructor.
+
+#### Configuration Sources
+- ```CmdArgsConfigSource```: ```CmdArgsConfigSource(String... args)```
+- ```MapConfigSource```: ```MapConfigSource(Map map, boolean modifiable)```
+- ```PropertiesConfigSource```: ```PropertiesConfigSource(Properties properties, boolean modifiable)```
+- ```PropertiesFileConfigSource```: ```PropertiesFileConfigSource(String path, boolean modifiable)``
+
+
 ### FileSystem
 
 #### FSWatch
