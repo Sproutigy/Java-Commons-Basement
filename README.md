@@ -163,7 +163,7 @@ assert Newline.detect("Hello\r\nWorld") == Newline.CR_LF;
 String s = Newline.WINDOWS.getString();
 ```
 
-### BOM
+#### BOM
 Describes UTF-8, UTF-16 and UTF-32 BOMs. Contains magic bytes to detect or to write into an output stream.
 
 ```java
