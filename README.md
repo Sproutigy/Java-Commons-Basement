@@ -40,8 +40,14 @@ Repository:
 
 ### Gradle
 ```
+repositories {
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
 dependencies {
-  compile 'com.sproutigy.commons:basement:RELEASE'
+  compile 'com.sproutigy.commons:basement:1.0-SNAPSHOT'
 }
 ```
 
