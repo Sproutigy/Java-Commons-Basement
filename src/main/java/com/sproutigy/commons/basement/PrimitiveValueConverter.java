@@ -2,13 +2,12 @@ package com.sproutigy.commons.basement;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Optional;
 
 public final class PrimitiveValueConverter {
     private PrimitiveValueConverter() { }
 
     public static <T> T convert(Object o, Class<T> clazz) {
-        if (o == null || Optional.empty().equals(o)) {
+        if (o == null || Obj.isEmpty(o)) {
             if (clazz.isPrimitive()) {
                 if (clazz == boolean.class) {
                     return (T) (Boolean) false;
