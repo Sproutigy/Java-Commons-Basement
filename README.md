@@ -13,12 +13,29 @@ No additional required dependencies.
 ## Add as dependency to your project
 
 ### Maven
+It is still under development and is available right now as a SNAPSHOT:
+
+Dependency:
 ```xml
 <dependency>
     <groupId>com.sproutigy.commons</groupId>
     <artifactId>basement</artifactId>
-    <version>RELEASE</version>
+    <version>1.0-SNAPSHOT</version>
 </dependency>
+```
+
+Repository:
+```xml
+<repositories>
+    <repository>
+        <id>oss-sonatype</id>
+        <name>oss-sonatype</name>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
 ```
 
 ### Gradle
