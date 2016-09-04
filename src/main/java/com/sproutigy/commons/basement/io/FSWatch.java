@@ -1,4 +1,4 @@
-package com.sproutigy.commons.basement.fs;
+package com.sproutigy.commons.basement.io;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -32,8 +32,12 @@ public class FSWatch implements AutoCloseable, Runnable {
 
 
     public FSWatch() {
+        this(FileSystems.getDefault());
+    }
+
+    public FSWatch(FileSystem fileSystem) {
         try {
-            watchService = FileSystems.getDefault().newWatchService();
+            watchService = fileSystem.newWatchService();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
