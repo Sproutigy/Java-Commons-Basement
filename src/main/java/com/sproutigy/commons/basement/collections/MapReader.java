@@ -25,12 +25,20 @@ public class MapReader<K, V> implements Iterable<Map.Entry<K, V>> {
         return map.isEmpty();
     }
 
-    public Optional<K> get(K key) {
+    public Optional<V> get(K key) {
         V value = map.get(key);
         if (value == null) {
             return Optional.empty();
         }
-        return Optional.of(key);
+        return Optional.of(value);
+    }
+
+    public V getOr(K key, V defaultValue) {
+        V value = map.get(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        return value;
     }
 
     public V getOrNull(K key) {
