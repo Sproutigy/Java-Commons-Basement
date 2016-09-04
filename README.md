@@ -124,7 +124,21 @@ Config of multiple sources can be created by constructing ```new CompoundConfig(
 - ```PropertiesFileConfigSource```: ```PropertiesFileConfigSource(String path, boolean modifiable)``
 
 
-### FileSystem
+### Input/Output
+
+#### Newline
+```
+assert Newline.detect("Hello\r\nWorld") == Newline.CR_LF;
+String s = Newline.WINDOWS.getString();
+```
+
+#### BOM
+Describes UTF-8, UTF-16 and UTF-32 BOMs. Contains magic bytes to detect or to write into an output stream.
+
+```java
+byte[] bom = BOM.UTF_8.getBytes();
+Charset charset = BOM.forBytes(bom).getCharset();
+```
 
 #### FSWatch
 To watch for directory or file changes, use FSWatch instance:
@@ -155,20 +169,6 @@ Object val = Obj.nullable(opt);
 
 String blabla = null;
 blabla = Obj.stringify(blabla); //empty string "" instead of "null"
-```
-
-#### Newline
-```
-assert Newline.detect("Hello\r\nWorld") == Newline.CR_LF;
-String s = Newline.WINDOWS.getString();
-```
-
-#### BOM
-Describes UTF-8, UTF-16 and UTF-32 BOMs. Contains magic bytes to detect or to write into an output stream.
-
-```java
-byte[] bom = BOM.UTF_8.getBytes();
-Charset charset = BOM.forBytes(bom).getCharset();
 ```
 
 #### Close
