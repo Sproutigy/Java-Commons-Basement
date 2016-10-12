@@ -54,6 +54,16 @@ public final class Obj {
         return (T) o;
     }
 
+    public static <T> T nonnull(T... args) {
+        for (T arg : args) {
+            if (arg != null) {
+                return arg;
+            }
+        }
+
+        throw new NullPointerException("Expected non-null argument");
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> T nullable(Object o) {
         if (o == null) {
@@ -75,19 +85,29 @@ public final class Obj {
     @SuppressWarnings("unchecked")
     public static <T> T nonempty(Object o) {
         if (isEmpty(o)) {
-            throw new IllegalArgumentException("Expected non-null and non-empty object");
+            throw new IllegalArgumentException("Expected non-empty object");
         }
 
         if (isOptional(o)) {
             OptionalHandler optionalHandler = matchOptionalHandler(o);
             if (!optionalHandler.isPresent(o)) {
-                throw new IllegalArgumentException("Expected non-null and non-empty object");
+                throw new IllegalArgumentException("Expected non-empty object");
             } else {
                 return (T) optionalHandler.get(o);
             }
         }
 
         return (T) o;
+    }
+
+    public static <T> T nonempty(T... args) {
+        for (T arg : args) {
+            if (!isEmpty(arg)) {
+                return arg;
+            }
+        }
+
+        throw new IllegalArgumentException("Expected non-empty argument");
     }
 
     /**
